@@ -1,0 +1,3 @@
+# processor=serial：串行——只执行一次，产出一条轨迹，返回其 final_answer（无聚合）。
+# processing 层 serial 子模块。
+name: serial

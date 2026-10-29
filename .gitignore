@@ -1,0 +1,16 @@
+models/
+downloads/
+runs/
+**/runs/
+data/benchmarks/
+**/__pycache__/
+*.py[cod]
+*.whl
+*.part
+*.pptx
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.DS_Store

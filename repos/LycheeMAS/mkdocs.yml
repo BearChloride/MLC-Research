@@ -1,0 +1,95 @@
+site_name: LycheeMAS 文档
+site_description: 基于 AutoGen 的多智能体系统（MAS）研究框架 —— 统一图抽象 G=(V,E,W,T,M)
+repo_url: https://github.com/ecoli-hit/LycheeMAS
+repo_name: ecoli-hit/LycheeMAS
+docs_dir: docs
+copyright: LycheeMAS
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.tabs # 顶部标签页（首页/安装/…/API Reference），每个标签独立侧栏（对标 vLLM）
+    - navigation.expand # 侧栏默认展开：API Reference 标签下每个模块都可见
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+    - search.suggest
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: 切换到深色
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: 切换到浅色
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search:
+      # CJK 友好分词：让中文标识与关键词可被搜索
+      separator: '[\s​\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - include-markdown
+  - gen-files:
+      scripts:
+        - docs/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src] # griffe 静态解析 src/lychee_mas，不 import（无需 torch/autogen）
+          options:
+            docstring_style: google
+            docstring_section_style: table
+            filters: ["!^_"] # 隐藏下划线私有成员
+            members_order: source
+            merge_init_into_class: true
+            separate_signature: true
+            show_signature_annotations: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_source: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            heading_level: 2
+
+nav:
+  - 首页: index.md
+  - 团队入门与开发指南: ONBOARDING.md
+  - 开发实例走读（MASPO）: example-maspo.md
+  - Git 管理规范: GIT_GUIDE.md
+  - 安装: installation.md
+  - 快速上手: quickstart.md
+  - 架构设计: DESIGN.md
+  - 开发指南: contributing.md
+  - API Reference: reference/

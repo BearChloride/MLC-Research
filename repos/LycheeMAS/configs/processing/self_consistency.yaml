@@ -1,0 +1,3 @@
+# aggregator=self_consistency：多数投票（纯标准库可跑组件，唯一真实可测聚合器）。
+name: self_consistency
+k: null   # 只取前 k 个候选参与投票（null=全用）

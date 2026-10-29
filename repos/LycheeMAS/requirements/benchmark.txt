@@ -1,0 +1,14 @@
+# LycheeMAS benchmark / full-run environment.
+#
+# The core package intentionally keeps pyproject.toml [project].dependencies empty so
+# `import lychee_mas` remains lightweight. Use this file when preparing an environment
+# for benchmark data download, AutoGen runtime, HumanEval/GAIA tools, and analysis.
+#
+# Recommended:
+#   python -m pip install -r requirements/benchmark.txt
+#   python -m playwright install chromium
+#
+# For local GPU runs, install a torch build that matches the server CUDA stack first if
+# the default PyPI torch wheel is not appropriate.
+
+-e .[runtime,config,dev,benchmark]

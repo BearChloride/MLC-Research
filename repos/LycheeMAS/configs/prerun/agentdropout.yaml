@@ -1,0 +1,23 @@
+# pre_run_optimizer/agentdropout —— AgentDropout 动态节点/边淘汰（ACL 2025）。
+# 实现：methods/prerun/agentdropout/optimizer.py::AgentDropoutLG（与 maspo 同款：
+# 注册类在 methods，plugins/prerun/agentdropout_lg.py 只剩兼容 shim）
+# 用法：optimize_langgraph(sg, method="agentdropout", **本文件超参, ...)
+#   apply    模式：state_file 必填，取第 round 轮 threshold 实现写回图
+#                （被淘汰节点写 spec.meta["dropped"]=True，节点工厂据此本轮不执行）
+#   optimize 模式：另需 trainset + rollout + reward + predict（脚本注入，不进配置）
+# 两阶段训练日程（代码事实，对照原版 run_gsm8k.py）在 methods/prerun/agentdropout/
+# trainer.py::AgentDropoutTrainer，与 MASPO 同一接口面；scripts/run_agentdropout_gsm8k.py
+# 只提供题池与生成后端，经 optimize_langgraph(mode="optimize") 驱动：
+#   阶段一（dec）2 batch × 20 题：每 query 逐轮 opt.sample_skip(r)（确定性无环全图上
+#   加权度 softmax 采样，被跳节点输出 'None.'），批末 opt.skip_reinforce（Adam lr=0.1），
+#   两批后 opt.node_dropout()（=原版 update_masks_dec，每轮淘汰最小加权度节点）；
+#   阶段二（diff）4 batch × 10 题（与阶段一同用 train 前 40 题）：逐轮 opt.sample_round(r)
+#   边 REINFORCE，batch idx {1,3} 后各 edge_dropout(rate) 一次（=原版 update_masks_diff），
+#   默认 rate 见脚本 --pruning-rate（README/论文口径 0.10；原版 argparse 默认 0.25）。
+method: agentdropout
+mode: apply                    # apply=挂载产物 | optimize=跑两阶段训练（与 maspo 同款词汇）
+state_file: null               # 训练产物（run_agentdropout_gsm8k.py --phase train 落盘）
+round: 0                       # 挂载哪一轮的拓扑（多轮实验由脚本逐轮取 realized_matrices(r)）
+rounds: 2                      # 与训练时一致（状态校验不符显式报错）
+seed: 0                        # 优化器实例 RNG 种子（sample_skip/sample_round 唯一消费者）
+pruning_rate: 0.10             # 阶段二 one-shot 剪边比例（论文口径；原版 argparse 默认 0.25）

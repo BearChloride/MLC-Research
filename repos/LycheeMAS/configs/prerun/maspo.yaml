@@ -1,0 +1,21 @@
+# pre_run_optimizer/maspo —— MASPO 联合提示优化（LangGraph 统一接口）。
+# 用法：optimize_langgraph(sg, method="maspo", **本文件超参, ...)
+#   apply    模式：prompt_file 必填（optimize 阶段产物），轻量注入
+#   optimize 模式：另需 trainset + agent_llm + evaluator_llm（脚本注入，不进配置）
+# 默认值 = 原版论文模式（run_maspo.py --optimize --fixed-rounds --beam-refresh
+#          --lookahead-score --misleading-sampling）
+method: maspo
+mode: apply
+prompt_file: null              # 优化产物 JSON：{"prompts": {节点名: 提示模板}, "meta": {...}}
+max_total_depth: 9             # 每 agent 总探索层数（原版 fixed-rounds 默认）
+rounds_per_turn: 3             # 坐标上升每轮做几层（原版默认）
+beam_width: 2
+eval_batch: 10                 # 每层评估采样题数（原版 min(10, len(train)))
+misleading_max: 5              # misleading cases 注入上限（原版默认）
+lookahead_weights: [0.4, 0.4, 0.2]   # Local : Next : Global（原版默认 4:4:2 归一）
+use_beam_refresh: true
+use_lookahead_score: true
+use_misleading_sampling: true
+use_feedback: false            # 原版论文模式未开
+seed: 0
+max_concurrency: 8             # LLM 调用并发上限（本地 HF 后端天然串行）

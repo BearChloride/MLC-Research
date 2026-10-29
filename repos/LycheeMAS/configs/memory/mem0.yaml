@@ -1,0 +1,6 @@
+# memory=mem0：外部基线记忆管理器（桩，CLAUDE.md §5 消融矩阵）。当前 recall 抛 NotImplementedError。
+name: mem0
+router:
+  name: fixed
+  channel: nl
+  P: 16

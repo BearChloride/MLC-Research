@@ -1,0 +1,2 @@
+# aggregator=dynamicagg：动态聚合（在研，桩）。当前 aggregate 抛 NotImplementedError。
+name: dynamicagg

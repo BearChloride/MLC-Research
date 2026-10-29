@@ -1,0 +1,16 @@
+# agent_selector=agentinit：AgentInit（EMNLP 2025 Findings）多样性×相关性 Pareto 选择。
+# 选择数学与官方源码一致（余弦 + Vendi 多样性 + 非支配排序）；无 NSGA-II 进化。
+name: agentinit
+mode: pool                       # pool（离线/消融，M1 已实现）| generate（忠实 LLM 生成，M2）
+objectives: [relevance, diversity]
+min_roles: 1                     # 团队规模下界（子集枚举下界）
+max_roles: 5                     # 团队规模上界（对齐官方 Init_Population max_roles；规模由前沿挑选涌现）
+seed: 0                          # 可复现（pool 模式选择确定性，此项为 API 一致性预留）
+
+# --- 仅 generate 模式（M2）---
+# LLM endpoint 走 env（决策 B：轻量 OpenAI 兼容 chat）：
+#   LYCHEE_LLM_MODEL / LYCHEE_LLM_API_KEY / LYCHEE_LLM_BASE_URL
+# 角色/query 嵌入器：在此显式写你的句向量编码器 HF 路径（本仓库 yaml 走 yaml.safe_load，
+# 不支持 ${env:...}；请把下面这行改成真实路径，例如 /data/models/bge-base-en）。
+embedder_model: /path/to/embed   # ← 改成你的句向量编码器路径（一个 HF 文本编码器目录）
+critique_rounds: 3               # CreateRoles↔Check 迭代上限（对齐官方 num_steps）

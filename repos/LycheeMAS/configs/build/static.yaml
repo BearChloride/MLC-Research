@@ -1,0 +1,5 @@
+# topology=static：按 team 名产出 AgentSpec 列表（顺序链 MASGraph，必做 baseline）。
+name: static
+team: default     # 队伍 profile（default/single/aime/reason/fact/memory；见 construct/templates.py）
+rounds: 2
+model: null       # 队伍统一模型 id（null=各 Role 自带或运行时默认）

@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+# 打包产物只忽略仓库根目录的（前导 / 锚定）；写成 build/ 会吞掉 src/**/build/ 接缝包
+/build/
+/dist/
+
+# 虚拟环境 / 密钥
+.venv/
+venv/
+.env
+
+# 实验产物 / 数据（CLAUDE.md §7：不提交 runs/ 与大产物）
+runs/
+*.jsonl
+checkpoints/
+data/raw/
+data/processed/
+data/benchmarks/
+
+# 工具缓存
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# 文档站构建产物（MkDocs）
+site/
+.cache/
+# 本地/内部 benchmark 交接与汇报材料（公开提交只保留 BENCHMARK_HANDOFF_PUBLIC.md）
+docs/BENCHMARK_HANDOFF_PRIVATE.md
+docs/BENCHMARK_FIVE_PAGE_REPORT.md
+docs/BENCHMARK_ONE_PAGE_REPORT.md
+docs/assets/benchmark-structure.svg
+
+# OS
+.DS_Store
+
+# Claude Code 本地状态（会话/worktrees/本地配置，不共享）
+.claude/
+**/.claude/settings.local.json

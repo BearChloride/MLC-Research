@@ -1,0 +1,9 @@
+# processor=parallel：并行——并发执行 K 次产 K 条轨迹，再用 aggregator 聚合成一个 Answer。
+# processing 层 parallel 子模块。
+name: parallel
+k: 5                     # 并发执行次数（产 K 条轨迹）
+aggregator: self_consistency   # 归约策略（aggregator 类别；默认多数投票）
+# aggregator_kwargs:        # 聚合器构造超参透传（需带配置的聚合器用，如 aggagent）
+#   model: <served-name>   #   聚合模型名（需支持 tool-calling：vLLM --enable-auto-tool-choice）
+#   api_base: http://localhost:6000/v1
+#   question: ...          #   题面；缺省取第一条轨迹 task_id（详见 configs/processing/aggagent.yaml）

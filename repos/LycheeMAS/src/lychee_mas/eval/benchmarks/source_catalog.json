@@ -1,0 +1,326 @@
+{
+  "gsm8k": {
+    "benchmark_source": "GSM8K",
+    "modelscope": {
+      "env": "LYCHEE_GSM8K_MODELSCOPE_ID",
+      "default_ids": ["AI-ModelScope/gsm8k", "modelscope/gsm8k"]
+    },
+    "huggingface": {
+      "env": "LYCHEE_GSM8K_HF_ID",
+      "default_ids": ["openai/gsm8k", "gsm8k"]
+    },
+    "other_defaults": [],
+    "fallback_files": []
+  },
+  "aime_2024": {
+    "benchmark_source": "AIME 2024",
+    "modelscope": {
+      "env": "LYCHEE_AIME_2024_MODELSCOPE_ID",
+      "default_ids": ["AI-ModelScope/AIME_2024", "HuggingFaceH4/aime_2024"]
+    },
+    "huggingface": {
+      "env": "LYCHEE_AIME_2024_HF_ID",
+      "default_ids": ["HuggingFaceH4/aime_2024", "Maxwell-Jia/AIME_2024", "AI-MO/aimo-validation-aime"]
+    },
+    "other_defaults": [],
+    "fallback_files": []
+  },
+  "arc_easy": {
+    "benchmark_source": "ARC-Easy",
+    "modelscope": {
+      "env": "LYCHEE_ARC_MODELSCOPE_ID",
+      "default_ids": ["OmniData/ARC"]
+    },
+    "huggingface": {
+      "env": "LYCHEE_ARC_HF_ID",
+      "default_ids": ["allenai/ai2_arc", "ai2_arc"]
+    },
+    "other_defaults": [
+      {
+        "provider": "modelscope_dataset",
+        "id": "modelscope/ai2_arc",
+        "purpose": "ARC-related HF-style ModelScope dataset; validation prepare timed out, so it is not a default source"
+      }
+    ],
+    "fallback_files": []
+  },
+  "openbookqa": {
+    "benchmark_source": "OpenBookQA",
+    "modelscope": {
+      "env": "LYCHEE_OPENBOOKQA_MODELSCOPE_ID",
+      "default_ids": ["allenai/openbookqa"]
+    },
+    "huggingface": {
+      "env": "LYCHEE_OPENBOOKQA_HF_ID",
+      "default_ids": ["allenai/openbookqa", "openbookqa"]
+    },
+    "other_defaults": [],
+    "fallback_files": []
+  },
+  "medqa": {
+    "benchmark_source": "MedQA",
+    "modelscope": {
+      "env": "LYCHEE_MEDQA_MODELSCOPE_ID",
+      "default_ids": ["AI-ModelScope/med_qa"]
+    },
+    "huggingface": {
+      "env": "LYCHEE_MEDQA_HF_ID",
+      "default_ids": ["GBaker/MedQA-USMLE-4-options", "GBaker/MedQA-USMLE-4-options-hf"]
+    },
+    "other_defaults": [
+      {
+        "provider": "modelscope_zip_alt",
+        "id": "cloakone/MedQA",
+        "purpose": "processed alpaca-style MedQA variant; schema/language differs from the default US MedQA source"
+      }
+    ],
+    "fallback_files": []
+  },
+  "locomo10": {
+    "benchmark_source": "LoCoMo10",
+    "modelscope": {
+      "env": "LYCHEE_LOCOMO10_MODELSCOPE_ID",
+      "default_ids": ["evalscope/locomo"]
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": ["Percena/locomo-mc10"]
+    },
+    "other_defaults": [
+      {
+        "provider": "github_raw",
+        "id": "https://raw.githubusercontent.com/snap-research/locomo/main/data/locomo10.json",
+        "purpose": "official LoCoMo raw JSON fallback"
+      }
+    ],
+    "fallback_files": [
+      {
+        "provider": "huggingface_direct",
+        "repo_id": "Percena/locomo-mc10",
+        "files": ["raw/locomo10.json"],
+        "strict": true,
+        "purpose": "single-file source used by the LoCoMo10 loader"
+      }
+    ]
+  },
+  "human_eval": {
+    "benchmark_source": "HumanEval",
+    "modelscope": {
+      "env": "LYCHEE_HUMANEVAL_MODELSCOPE_ID",
+      "default_ids": ["modelscope/humaneval", "opencompass/humaneval"]
+    },
+    "huggingface": {
+      "env": "LYCHEE_HUMANEVAL_HF_ID",
+      "default_ids": ["openai/openai_humaneval"]
+    },
+    "other_defaults": [
+      {
+        "provider": "github_raw",
+        "id": "https://github.com/openai/human-eval/raw/master/data/HumanEval.jsonl.gz",
+        "purpose": "last-resort official raw archive fallback"
+      }
+    ],
+    "fallback_files": []
+  },
+  "gaia": {
+    "benchmark_source": "GAIA",
+    "modelscope": {
+      "env": "LYCHEE_GAIA_MODELSCOPE_ID",
+      "default_ids": ["gaia-benchmark/GAIA", "AI-ModelScope/GAIA"]
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": ["gaia-benchmark/GAIA"]
+    },
+    "other_defaults": [],
+    "fallback_files": []
+  },
+  "aftraj": {
+    "benchmark_source": "AFTraj-2K",
+    "modelscope": {
+      "env": "LYCHEE_AFTRAJ_MODELSCOPE_ID",
+      "default_ids": []
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": ["ZBox008003/AFTraj"]
+    },
+    "other_defaults": [],
+    "fallback_files": [
+      {
+        "provider": "huggingface_direct",
+        "repo_id": "ZBox008003/AFTraj",
+        "files": ["aftraj_safe.parquet", "aftraj_unsafe.parquet", "splits_test.json"],
+        "strict": true,
+        "purpose": "complete minimal files required by AFTraj loaders"
+      }
+    ]
+  },
+  "agent_collab": {
+    "benchmark_source": "AgentCollabBench",
+    "modelscope": {
+      "env": "LYCHEE_AGENTCOLLAB_MODELSCOPE_ID",
+      "default_ids": []
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": ["AgentCollabBench/AgentCollabBench"]
+    },
+    "other_defaults": [],
+    "fallback_files": [
+      {
+        "provider": "huggingface_direct_listed",
+        "repo_id": "AgentCollabBench/AgentCollabBench",
+        "patterns": ["TASK-*.json", "data/**", "README*", ".gitattributes"],
+        "strict": false,
+        "purpose": "listed-file fallback; still validates that task JSON or train.jsonl exists"
+      }
+    ]
+  },
+  "mast_data": {
+    "benchmark_source": "MAST-Data",
+    "modelscope": {
+      "env": "LYCHEE_MAST_MODELSCOPE_ID",
+      "default_ids": []
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": ["mcemri/MAST-Data"]
+    },
+    "other_defaults": [],
+    "fallback_files": [
+      {
+        "provider": "huggingface_direct",
+        "repo_id": "mcemri/MAST-Data",
+        "files": ["MAD_human_labelled_dataset.json"],
+        "optional_full_files_env": "LYCHEE_MAST_DOWNLOAD_FULL",
+        "optional_full_files": ["MAD_full_dataset.json"],
+        "strict": true,
+        "purpose": "default task uses human-labelled data; full dataset is explicit"
+      }
+    ]
+  },
+  "open_agent_traces": {
+    "benchmark_source": "Open Agent Traces",
+    "modelscope": {
+      "env": "LYCHEE_OPENAGENTTRACES_MODELSCOPE_ID",
+      "default_ids": []
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": ["juliensimon/open-agent-traces"]
+    },
+    "other_defaults": [],
+    "fallback_files": [
+      {
+        "provider": "huggingface_direct_listed",
+        "repo_id": "juliensimon/open-agent-traces",
+        "patterns": ["data/**/*.parquet", "data/*.parquet", "README*", ".gitattributes"],
+        "strict": false,
+        "purpose": "listed-file fallback; loader validates parquet files under data/"
+      }
+    ]
+  },
+  "addsub": {
+    "benchmark_source": "AddSub (MAWPS)",
+    "local_only": true,
+    "local_source_env": "LYCHEE_ADDSUB_JSONL",
+    "local_data_root_env": "LYCHEE_MLC_DATA_ROOT",
+    "relative_path": "mawps/addsub.jsonl",
+    "modelscope": {
+      "env": null,
+      "default_ids": []
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": []
+    },
+    "other_defaults": [],
+    "fallback_files": []
+  },
+  "singleeq": {
+    "benchmark_source": "SingleEQ (MAWPS)",
+    "local_only": true,
+    "local_source_env": "LYCHEE_SINGLEEQ_JSONL",
+    "local_data_root_env": "LYCHEE_MLC_DATA_ROOT",
+    "relative_path": "mawps/singleeq.jsonl",
+    "modelscope": {
+      "env": null,
+      "default_ids": []
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": []
+    },
+    "other_defaults": [],
+    "fallback_files": []
+  },
+  "multiarith": {
+    "benchmark_source": "MultiArith (MAWPS)",
+    "local_only": true,
+    "local_source_env": "LYCHEE_MULTIARITH_JSONL",
+    "local_data_root_env": "LYCHEE_MLC_DATA_ROOT",
+    "relative_path": "mawps/multiarith.jsonl",
+    "modelscope": {
+      "env": null,
+      "default_ids": []
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": []
+    },
+    "other_defaults": [],
+    "fallback_files": []
+  },
+  "asdiv": {
+    "benchmark_source": "ASDiv",
+    "local_only": true,
+    "local_source_env": "LYCHEE_ASDIV_XML",
+    "local_data_root_env": "LYCHEE_MLC_DATA_ROOT",
+    "relative_path": "ASDiv_ASDiv.xml/dataset/ASDiv.xml",
+    "modelscope": {
+      "env": null,
+      "default_ids": []
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": []
+    },
+    "other_defaults": [],
+    "fallback_files": []
+  },
+  "svamp": {
+    "benchmark_source": "SVAMP",
+    "local_only": true,
+    "local_source_env": "LYCHEE_SVAMP_JSON",
+    "local_data_root_env": "LYCHEE_MLC_DATA_ROOT",
+    "relative_path": "SVAMP_SVAMP.json/SVAMP.json",
+    "modelscope": {
+      "env": null,
+      "default_ids": []
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": []
+    },
+    "other_defaults": [],
+    "fallback_files": []
+  },
+  "math": {
+    "benchmark_source": "MATH",
+    "local_only": true,
+    "local_source_env": "LYCHEE_MATH_DIR",
+    "local_data_root_env": "LYCHEE_MLC_DATA_ROOT",
+    "relative_path": "Math",
+    "modelscope": {
+      "env": null,
+      "default_ids": []
+    },
+    "huggingface": {
+      "env": null,
+      "default_ids": []
+    },
+    "other_defaults": [],
+    "fallback_files": []
+  }
+}

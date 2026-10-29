@@ -1,0 +1,17 @@
+# aggregator=aggagent —— agentic 聚合（AggAgent 移植，princeton-pli/AggAgent, Apache-2.0）。
+# 用法：processor/parallel 的配置里把 aggregator 换成 aggagent，再把本文件超参放
+# aggregator_kwargs 下，即替换多数投票基线、同设置对拍（mock 注入则给 client，见
+# examples/02_aggagent_e2e.py）。
+# 聚合模型须支持 tool-calling（OpenAI 兼容端点；vLLM 启动需 --enable-auto-tool-choice +
+# --tool-call-parser 等参数，见 docs/plans/aggagent-integration.md 与包内 NOTICE.md）。
+# 模型/端点路径走配置或环境变量，绝不写进代码（CLAUDE.md 黄金法则 8）。
+name: aggagent
+question: null                 # 题面；null = 取 trajectories[0].task_id
+task: ""                       # "" = 短答（<explanation>/<answer> XML）；healthbench / researchrubrics = 长报告
+model: ""                      # 聚合模型名（vLLM served name 或网关名）；含 "qwen" 时 finish 切 Explanation:/Exact Answer:
+api_base: ""                   # OpenAI 兼容端点基址（如 http://localhost:6000/v1）；与 model 一起提供即走 HttpAggClient
+api_key: ""                    # 密钥；留空 = Bearer EMPTY（vLLM 惯例）
+max_context_tokens: 102400     # 上下文预算（原版 100K）；超限走 FINAL_MESSAGE 强制 finish
+max_iterations: 100            # 聚合 agent 迭代上限（原版 MAX_ITERATIONS）
+max_tries: 5                   # 单次 LLM 调用重试次数（指数退避）
+timeout: 60                    # 单次 HTTP 超时（秒）

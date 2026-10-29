@@ -1,0 +1,12 @@
+# memory=cdm：CDM 双通道记忆方法（自然语言/隐空间动态通道选择，在研重点）。
+# 与 router（触发接缝）配合：router 决定通道，cdm 物化通道（apples-to-apples，只变注入/路由）。
+name: cdm
+latent_strategy: soft_token   # latent 通道方法：soft_token(正确) | segment_mean | stride | tail
+nl_strategy: prev_output      # NL 通道方法：prev_output(原样传上一个 agent 输出)
+max_encode_tokens: 4096       # 编码 source 时最多取多少 token（过长截断）
+include_transcript: true      # 是否把运行中的 MAS 对话并入记忆 source
+tau: 1.0                      # soft_token 温度（越小越接近 argmax）
+router:
+  name: fixed                 # 触发接缝：static | fixed | learned | soft_gate
+  channel: nl                 # fixed 路由的恒定通道：none | nl | latent | both
+  P: 16                       # latent prefix 长度（latent 通道成本旋钮）

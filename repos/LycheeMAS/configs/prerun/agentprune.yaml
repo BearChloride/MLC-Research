@@ -1,0 +1,7 @@
+# pre_run_optimizer/agentprune —— AgentPrune 时空掩码剪枝（LangGraph 统一接口）。
+# 用法：optimize_langgraph(sg, method="agentprune", state_file=..., **其余透传 AgentPrunePruner)
+# apply 语义：加载训练好的 logits/masks，threshold 确定性实现写回图
+# （训练循环仍走 scripts/run_agentprune_gsm8k.py，产 state_file）
+method: agentprune
+state_file: null               # 训练产物（run_agentprune_gsm8k.py --phase train 落盘）
+temperature: 1.0
