@@ -14,8 +14,6 @@
 - 角色分化目标中的互信息和成对差异使用有限样本代理估计；互信息代理由单个状态内三个 agent 的相似度矩阵计算，并非跨样本 batch 估计，也不是论文估计方法的完整复刻。
 - 训练使用角色策略、token 策略、团队 TD 价值学习和角色分化目标；通过 teacher-forced token log-prob 计算生成动作的策略梯度。
 
-上述设计旨在在资源约束下保留并验证主要实现路径，不应解读为论文算法的逐项等价实现。基座模型被冻结、状态编码简化、估计目标采用代理等差异都会限制实验结果的可比性与结论范围。
-
 ## 目录结构
 
 ```text
@@ -49,8 +47,6 @@ MLC-Research/
 │       └── docs/reports/                    # 实验阶段报告、结果与诊断文档
 └── README.md
 ```
-## 目录结构
-
 - `repos/LycheeMAS/`：代码仓库，核心实现位于 `src/lychee_mas/methods/prerun/mlc/`，实验入口位于 `scripts/run_mlc_gsm8k.py`。
 - `model/`：实验使用的数学推理原始数据。
 - `references/`：论文 PDF。
